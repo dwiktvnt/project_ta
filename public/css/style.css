@@ -1,0 +1,35 @@
+*{
+    font-family: 'Nunito', sans-serif;
+}
+
+
+
+.navbar{
+    background-color: transparent !important;
+}
+
+#homepage {
+    margin-top: -60px;
+    height: 660px;
+    text-align: center;
+    padding: 200px;
+    background-image: url('https://eskipaper.com/images/cat-background-2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#datadiri {
+    height: 660px;
+    padding: 60px;
+    background-image: url('https://eskipaper.com/images/cat-background-2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#datadiri form{
+    width: 50%;
+}
+
+#datadiri button {
+    width: 6rem;
+}
