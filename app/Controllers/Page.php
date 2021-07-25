@@ -6,11 +6,17 @@ class Page extends BaseController
 {
 	public function index()
 	{
-		return view('pages/index');
+		$data = [
+			'title' => 'SPPK | Home'
+		];
+		return view('pages/index', $data);
 	}
 
 	public function datadiri()
 	{
-		return view('pages/datadiri');
+		$data = [
+			'title' => 'SPPK | Data diri'
+		];
+		return view('pages/datadiri', $data);
 	}
 }
