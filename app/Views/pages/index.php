@@ -29,7 +29,7 @@
     <div class="main-content-3-2" style="font-family: 'Poppins', sans-serif;">
         <div class="text-center">
             <h1 class="title-text-content"><b>Informasi</b> </h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, quia?</p>
+            <p>Daftar Data Gejala & Penyakit Kucing</p>
         </div>
         <div class="container">
             <div class="row">
@@ -38,30 +38,26 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Kode Gejala</th>
+                                <th scope="col">Nama Gejala</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            <?php
+                            $i = 1;
+                            ?>
+                            <?php
+                            foreach ($data as $d) :
+                            ?>
+                                <tr>
+                                    <th scope="row"><?= $i++; ?> </th>
+                                    <td><?= $d['kodeGejala']; ?></td>
+                                    <td><?= $d['namaGejala']; ?></td>
+                                </tr>
+                            <?php
+                            endforeach;
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -69,31 +65,28 @@
                     <h4 class="mt-1 mb-4">Data Penyakit</h4>
                     <table class="table table-hover">
                         <thead>
+
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Kode Penyakit</th>
+                                <th scope="col">Nama Penyakit</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            <?php
+                            $i = 1;
+                            ?>
+                            <?php
+                            foreach ($dataPenyakit as $d) :
+                            ?>
+                                <tr>
+                                    <th scope="row"><?= $i++; ?> </th>
+                                    <td><?= $d['kodePenyakit']; ?></td>
+                                    <td><?= $d['namaPenyakit']; ?></td>
+                                </tr>
+                            <?php
+                            endforeach;
+                            ?>
                         </tbody>
                     </table>
                 </div>

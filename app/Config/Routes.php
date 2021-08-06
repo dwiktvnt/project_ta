@@ -31,8 +31,37 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Page::index');
-$routes->get('/admin', 'Admin::index', ['filter' => 'role:admin,user']);
+$routes->add('/', 'Page::index');
+
+
+$routes->add('/admin', 'Admin::index', ['filter' => 'role:admin,user']);
+$routes->add('/admin/savejwb', 'Admin::savejwb', ['filter' => 'role:admin,user']);
+$routes->add('/admin/rulePakar', 'Admin::rulePakar', ['filter' => 'role:admin,user']);
+$routes->add('/admin/profile', 'Admin::profile', ['filter' => 'role:admin,user']);
+$routes->add('/admin/createGejala', 'Admin::createGejala', ['filter' => 'role:admin,user']);
+$routes->add('/admin/saveGejala', 'Admin::saveGejala', ['filter' => 'role:admin,user']);
+$routes->add('/admin/dataGejala', 'Admin::dataGejala', ['filter' => 'role:admin,user']);
+$routes->add('/admin/editGejala/(:num)', 'Admin::editGejala/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/updateGejala/(:num)', 'Admin::updateGejala/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/deleteGejala/(:num)', 'Admin::deleteGejala/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/dataPenyakit', 'Admin::dataPenyakit', ['filter' => 'role:admin']);
+$routes->add('/admin/userList', 'Admin::userList', ['filter' => 'role:admin,user']);
+$routes->add('/admin/riwayatDiagnosa', 'Admin::riwayatDiagnosa', ['filter' => 'role:admin,user']);
+$routes->add('/admin/createPenyakit', 'Admin::createPenyakit', ['filter' => 'role:admin,user']);
+$routes->add('/admin/editPenyakit/(:num)', 'Admin::editPenyakit/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/updatePenyakit/(:num)', 'Admin::updatePenyakit/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/deletePenyakit/(:num)', 'Admin::deletePenyakit/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/editRuleGejala/(:num)', 'Admin::editRuleGejala/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/updateRuleGejala/(:num)', 'Admin::updateRuleGejala/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/hasil/(:alphanum)', 'Admin::hasil/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/editProfile/(:num)', 'Admin::editProfile/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/updateProfile/(:num)', 'Admin::updateProfile/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/riwayat', 'Admin::riwayat', ['filter' => 'role:admin']);
+$routes->add('/admin/savePenyakit', 'Admin::savePenyakit', ['filter' => 'role:admin']);
+
+
+$routes->add('/admin/(:any)', 'Admin::index/$1', ['filter' => 'role:admin,user']);
+
 
 /*
  * --------------------------------------------------------------------

@@ -21,6 +21,11 @@ class gejalaModel extends Model
         return $this->where(['idgejala' => $id])->first();
     }
 
+    public function getGejalaLimit()
+    {
+        return $this->findAll(29);
+    }
+
     public function getKode($kode = FALSE)
     {
         if ($kode == False) {

@@ -9,7 +9,7 @@ class penyakitModel extends Model
     protected $table = 'penyakit';
     protected $primaryKey = 'idpenyakit';
     protected $allowedFields = [
-        'kodePenyakit', 'namaPenyakit'
+        'kodePenyakit', 'namaPenyakit', 'solusi'
     ];
 
     public function getPenyakit($id = FALSE)
@@ -19,5 +19,10 @@ class penyakitModel extends Model
         }
 
         return $this->where(['idpenyakit' => $id])->first();
+    }
+
+    public function getKode($kode)
+    {
+        return $this->where(['kodePenyakit' => $kode])->findAll();
     }
 }

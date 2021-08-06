@@ -50,8 +50,8 @@
                                 </ul>
                             </div>
                             <div class="modal-footer" style="padding:	2rem; padding-top: 0.75rem">
-                                <a href="<?= base_url('admin'); ?>" class="btn btn-default btn-no-fill-header-2-2">Masuk</a>
-                                <a href="<?= base_url('admin'); ?>" class="btn btn-fill-header-2-2">Mulai Diagnosa</a>
+                                <a href="<?= base_url('admin/profile'); ?>" class="btn btn-default btn-no-fill-header-2-2">Masuk</a>
+                                <a href="<?= base_url('admin/profile'); ?>" class="btn btn-fill-header-2-2">Mulai Diagnosa</a>
                             </div>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                             <a class="nav-link" href="#informasi">Informasi</a>
                         </li>
                     </ul>
-                    <a href="<?= base_url('admin'); ?>" class="btn btn-default btn-no-fill-header-2-2">Masuk</a>
-                    <a href="<?= base_url('admin'); ?>" class="btn btn-fill-header-2-2">Mulai Diagnosa</a>
+                    <a href="<?= base_url('admin/profile'); ?>" class="btn btn-default btn-no-fill-header-2-2">Masuk</a>
+                    <a href="<?= base_url('admin/profile'); ?>" class="btn btn-fill-header-2-2">Mulai Diagnosa</a>
                 </div>
             </nav>
 
@@ -243,7 +243,7 @@
                             <a class="footer-link-footer-2-3" style="text-decoration: none;">Licenses</a>
                         </nav>
                         <nav class="d-flex flex-lg-row flex-column align-items-center justify-content-center">
-                            <p style="margin: 0">Copyright © 2021 Analystic Max</p>
+                            <p style="margin: 0">Copyright © <?= date('M - Y'); ?> SPPK</p>
                         </nav>
                     </div>
                 </div>
@@ -251,7 +251,13 @@
 
         </section>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>

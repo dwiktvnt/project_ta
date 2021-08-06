@@ -24,6 +24,9 @@
                                 <div class="col">
                                     <input type="text" name="namaPenyakit" class="form-control" placeholder="Nama Penyakit">
                                 </div>
+                                <div class="col">
+                                    <input type="text" name="solusi" class="form-control" placeholder="Solusi">
+                                </div>
 
                             </div>
                             <button type="submit" class="btn btn-primary mt-4">Input</button>

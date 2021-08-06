@@ -4,44 +4,112 @@ namespace App\Controllers;
 
 use App\Models\penyakitModel;
 use App\Models\gejalaModel;
-use App\Models\solusiModel;
+use App\Models\historyModel;
+use App\Models\profileModel;
 
 
 class Admin extends BaseController
 {
     protected $penyakitModel;
     protected $gejalaModel;
-    protected $solusiModel;
+    protected $historyModel;
+    protected $profileModel;
 
     public function __construct()
     {
         $this->penyakitModel = new penyakitModel();
         $this->gejalaModel = new gejalaModel();
-        $this->solusiModel = new solusiModel();
+        $this->historyModel = new historyModel();
+        $this->profileModel = new profileModel();
+        helper('date');
     }
 
-    public function index()
+    public function index($kode = FALSE)
     {
+
+        if (!$kode) {
+            $kode = 'G01';
+            $data = $this->gejalaModel->getKode($kode);
+            $history = '';
+        } elseif ($kode == 'P01' || $kode == 'P02' || $kode == 'P03' || $kode == 'P04' || $kode == 'P05' || $kode == 'P06' || $kode == 'P07' || $kode == 'P08' || $kode == 'P09' || $kode == 'P10' || $kode == 'P11') {
+            return redirect()->to('admin/hasil/' . $kode);
+        } else {
+            $data = $this->gejalaModel->getKode($kode);
+            $history = '';
+        }
+
         $data = [
-            'title' => 'SPPK | Mulai Diagnosa'
+            'title' => 'SPPK | Mulai Diagnosa',
+            'data' => $data,
+            'history' => $history
         ];
         return view('admin/index', $data);
     }
 
-    public function login()
+    public function savejwb()
     {
-        $data = [
-            'title' => 'Login'
-        ];
-        return view('auth/login', $data);
+        list($value1, $value2) = explode('|', $this->request->getVar('jawaban'));
+
+        $this->historyModel->save([
+            'email' => $this->request->getVar('email'),
+            'pertanyaan' => $this->request->getVar('pertanyaan'),
+            'jawaban' => $value1,
+            'next' => $value2,
+        ]);
+        return redirect()->to('admin/' . $value2);
     }
 
-    public function register()
+    public function hasil($kode)
+    {
+        $email = user()->email;
+
+        // join table history dengan gejala
+        $db      = \Config\Database::connect();
+        $builder = $db->table('history');
+        $builder->where('email', $email);
+        $builder->select('*');
+        $builder->join('gejala', 'gejala.kodeGejala = history.pertanyaan');
+        $query = $builder->get();
+
+        $data = [
+            'title' => 'Hasil Diagnosa',
+            'data' => $this->penyakitModel->getKode($kode),
+            'history' => $query->getResultArray()
+        ];
+
+        return view('admin/hasildiagnosa', $data);
+    }
+
+    public function profile()
     {
         $data = [
-            'title' => 'register'
+            'title' => 'Profile',
         ];
-        return view('auth/register', $data);
+
+        return view('admin/profile', $data);
+    }
+
+    public function editProfile($id)
+    {
+        $data = [
+            'title' => 'Edit Profile',
+            'data' => $this->profileModel->getData($id)
+        ];
+        return view('admin/editprofile', $data);
+    }
+
+    public function updateProfile($id)
+    {
+        $this->profileModel->save([
+            'id' => $id,
+            'fullname' => $this->request->getVar('fullname'),
+            'username' => $this->request->getVar('username'),
+            'email' => $this->request->getVar('email'),
+        ]);
+
+        session()->setFlashdata('pesan', 'Data Berhasil Diubah');
+
+        return redirect()->to('/admin/profile');
     }
 
     /* Menu Gejala */
@@ -62,7 +130,7 @@ class Admin extends BaseController
             'namaGejala' => $this->request->getVar('namaGejala')
         ]);
         session()->setFlashdata('pesan', 'Data Berhasil DItambahkan');
-        return redirect()->to('admin/datagejala');
+        return redirect()->to('admin/dataGejala');
     }
 
     public function datagejala()
@@ -95,14 +163,14 @@ class Admin extends BaseController
 
         session()->setFlashdata('pesan', 'Data Berhasil Diubah');
 
-        return redirect()->to('/admin/datagejala');
+        return redirect()->to('/admin/dataGejala');
     }
 
     public function deleteGejala($id)
     {
         $this->gejalaModel->delete($id);
         session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
-        return redirect()->to('/admin/datagejala');
+        return redirect()->to('/admin/dataGejala');
     }
 
     /* Menu Penyakit */
@@ -120,19 +188,20 @@ class Admin extends BaseController
 
         $this->penyakitModel->save([
             'kodePenyakit' => $this->request->getVar('kodePenyakit'),
-            'namaPenyakit' => $this->request->getVar('namaPenyakit')
+            'namaPenyakit' => $this->request->getVar('namaPenyakit'),
+            'solusi' => $this->request->getVar('solusi')
         ]);
         session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
-        return redirect()->to('admin/datapenyakit');
+        return redirect()->to('admin/dataPenyakit');
     }
 
-    public function datapenyakit()
+    public function dataPenyakit()
     {
         $data = [
             'title' => 'datapenyakit',
             'data' => $this->penyakitModel->getPenyakit()
         ];
-        return view('admin/datapenyakit', $data);
+        return view('admin/dataPenyakit', $data);
     }
 
     public function editPenyakit($id)
@@ -150,88 +219,26 @@ class Admin extends BaseController
             'idPenyakit' => $id,
             'kodePenyakit' => $this->request->getVar('kodePenyakit'),
             'namaPenyakit' => $this->request->getVar('namaPenyakit'),
-            'ifyes' => $this->request->getVar('kodeYes'),
-            'ifno' => $this->request->getVar('kodeNo'),
+            'solusi' => $this->request->getVar('solusi'),
         ]);
 
         session()->setFlashdata('pesan', 'Data Berhasil Diubah');
 
-        return redirect()->to('/admin/datapenyakit');
+        return redirect()->to('/admin/dataPenyakit');
     }
 
     public function deletePenyakit($id)
     {
         $this->penyakitModel->delete($id);
         session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
-        return redirect()->to('/admin/datapenyakit');
-    }
-
-    /* Menu Solusi */
-
-
-    public function createSolusi()
-    {
-        $data = [
-            'title' => 'createSolusi'
-        ];
-        return view('admin/createSolusi', $data);
-    }
-
-    public function saveSolusi()
-    {
-
-        $this->solusiModel->save([
-            'kodeSolusi' => $this->request->getVar('kodeSolusi'),
-            'namaSolusi' => $this->request->getVar('namaSolusi')
-        ]);
-        session()->setFlashdata('pesan', 'Data Berhasil DItambahkan');
-        return redirect()->to('admin/datasolusi');
-    }
-
-    public function datasolusi()
-    {
-        $data = [
-            'title' => 'datasolusi',
-            'data' => $this->solusiModel->getSolusi()
-        ];
-        return view('admin/datasolusi', $data);
-    }
-
-    public function editSolusi($id)
-    {
-        $data = [
-            'title' => 'editSolusi',
-            'data' => $this->solusiModel->getSolusi($id)
-        ];
-        return view('admin/editSolusi', $data);
-    }
-
-    public function updateSolusi($id)
-    {
-        $this->solusiModel->replace([
-            'idsolusi' => $id,
-            'kodeSolusi' => $this->request->getVar('kodeSolusi'),
-            'namaSolusi' => $this->request->getVar('namaSolusi')
-        ]);
-
-        session()->setFlashdata('pesan', 'Data Berhasil Diubah');
-
-        return redirect()->to('/admin/datasolusi');
-    }
-
-    public function deleteSolusi($id)
-    {
-        $this->solusiModel->delete($id);
-        session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
-        return redirect()->to('/admin/datasolusi');
+        return redirect()->to('/admin/dataPenyakit');
     }
 
     public function rulePakar()
     {
         $data = [
             'title' => 'Rule Pakar',
-            'dataGejala' => $this->gejalaModel->getGejala(),
-            'dataPenyakit' => $this->penyakitModel->getPenyakit()
+            'data' => $this->gejalaModel->getGejala(),
         ];
         return view('admin/rulePakar', $data);
     }
@@ -258,5 +265,24 @@ class Admin extends BaseController
         session()->setFlashdata('pesan', 'Data Berhasil Diubah');
 
         return redirect()->to('/admin/rulePakar');
+    }
+
+    public function riwayat()
+    {
+        // join table history dengan gejala
+        $db      = \Config\Database::connect();
+        $builder = $db->table('history');
+        $builder->select('*');
+        $builder->selectMax('idPilihan');
+        $builder->join('users', 'users.email = history.email');
+        // $builder->join('penyakit', 'penyakit.kodePenyakit = history.next');
+        $query = $builder->get();
+
+        $data = [
+            'title' => 'Riwayat Diagnosa',
+            'data' => $query->getResultArray()
+        ];
+
+        return view('admin/riwayat', $data);
     }
 }

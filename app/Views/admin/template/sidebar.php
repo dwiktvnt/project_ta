@@ -14,12 +14,14 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item  ">
-                    <a href="<?= base_url('admin'); ?>" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Home</span>
-                    </a>
-                </li>
+                <?php if (in_groups('user')) : ?>
+                    <li class="sidebar-item  ">
+                        <a href="<?= base_url('admin'); ?>" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
 
                 <li class="sidebar-item  ">
                     <a href="<?= base_url('admin/profile'); ?>" class='sidebar-link'>
@@ -28,14 +30,6 @@
                     </a>
                 </li>
 
-                <?php if (in_groups('admin')) : ?>
-                    <li class="sidebar-item  ">
-                        <a href="<?= base_url('admin/userList'); ?>" class='sidebar-link'>
-                            <i class="bi bi-people-fill"></i>
-                            <span>User List</span>
-                        </a>
-                    </li>
-                <?php endif; ?>
 
                 <?php if (in_groups('admin')) : ?>
                     <li class="sidebar-title">Data Management</li>
@@ -55,13 +49,6 @@
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="<?= base_url('admin/dataSolusi'); ?>" class='sidebar-link'>
-                            <i class="bi bi-clipboard-data"></i>
-                            <span>Data Solusi</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item  ">
                         <a href="<?= base_url('admin/rulePakar'); ?>" class='sidebar-link'>
                             <i class="bi bi-clipboard-data"></i>
                             <span>Rule Pakar</span>
@@ -69,7 +56,7 @@
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="<?= base_url('admin/riwayatDiagnosa'); ?>" class='sidebar-link'>
+                        <a href="<?= base_url('admin/riwayat'); ?>" class='sidebar-link'>
                             <i class="bi bi-file-earmark-check-fill"></i>
                             <span>Riwayat Diagnosa</span>
                         </a>
