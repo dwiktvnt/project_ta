@@ -9,7 +9,7 @@ class penyakitModel extends Model
     protected $table = 'penyakit';
     protected $primaryKey = 'idpenyakit';
     protected $allowedFields = [
-        'kodePenyakit', 'namaPenyakit', 'solusi'
+        'kodePenyakit', 'namaPenyakit', 'penjelasan', 'solusi'
     ];
 
     public function getPenyakit($id = FALSE)

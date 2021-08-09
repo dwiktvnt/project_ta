@@ -6,6 +6,7 @@ use App\Models\penyakitModel;
 use App\Models\gejalaModel;
 use App\Models\historyModel;
 use App\Models\profileModel;
+use \Mpdf\Mpdf;
 
 
 class Admin extends BaseController
@@ -15,18 +16,25 @@ class Admin extends BaseController
     protected $historyModel;
     protected $profileModel;
 
+
     public function __construct()
     {
         $this->penyakitModel = new penyakitModel();
         $this->gejalaModel = new gejalaModel();
         $this->historyModel = new historyModel();
         $this->profileModel = new profileModel();
-        helper('date');
     }
 
-    public function index($kode = FALSE)
+    public function index()
     {
+        $data = [
+            'title' => 'Home',
+        ];
+        return view('admin/index', $data);
+    }
 
+    public function mulaiDiagnosa($kode = FALSE)
+    {
         if (!$kode) {
             $kode = 'G01';
             $data = $this->gejalaModel->getKode($kode);
@@ -43,7 +51,7 @@ class Admin extends BaseController
             'data' => $data,
             'history' => $history
         ];
-        return view('admin/index', $data);
+        return view('admin/mulaidiagnosa', $data);
     }
 
     public function savejwb()
@@ -56,7 +64,7 @@ class Admin extends BaseController
             'jawaban' => $value1,
             'next' => $value2,
         ]);
-        return redirect()->to('admin/' . $value2);
+        return redirect()->to('admin/mulaiDiagnosa/' . $value2);
     }
 
     public function hasil($kode)
@@ -219,6 +227,7 @@ class Admin extends BaseController
             'idPenyakit' => $id,
             'kodePenyakit' => $this->request->getVar('kodePenyakit'),
             'namaPenyakit' => $this->request->getVar('namaPenyakit'),
+            'penjelasan' => $this->request->getVar('penjelasan'),
             'solusi' => $this->request->getVar('solusi'),
         ]);
 
@@ -269,20 +278,62 @@ class Admin extends BaseController
 
     public function riwayat()
     {
-        // join table history dengan gejala
+        // join table history dengan penyakit
         $db      = \Config\Database::connect();
         $builder = $db->table('history');
-        $builder->select('*');
-        $builder->selectMax('idPilihan');
-        $builder->join('users', 'users.email = history.email');
-        // $builder->join('penyakit', 'penyakit.kodePenyakit = history.next');
+        $builder->select('history.tglDiagnosa, history.next');
+        $builder->join('penyakit', 'penyakit.kodePenyakit = history.next');
         $query = $builder->get();
 
         $data = [
             'title' => 'Riwayat Diagnosa',
-            'data' => $query->getResultArray()
+            'users' => $this->profileModel->getOnlyUsers(),
+            'data'  => $query->getResultArray()
         ];
 
         return view('admin/riwayat', $data);
+    }
+
+    public function detailRiwayat($email)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('history');
+        $builder->where('email', $email);
+        $query = $builder->get();
+
+        $data = [
+            'title' => 'Detail Riwayat',
+            'user' => $this->profileModel->getUserbyEmail($email),
+            'detail'  => $query->getResultArray()
+        ];
+
+        return view('admin/detailRiwayat', $data);
+    }
+
+    public function exportPdf($kode)
+    {
+        // $mpdf = new Mpdf(['mode' => 'utf-8']);
+        // $mpdf->WriteHTML('Hello World!');
+        // return redirect()->to($mpdf->Output('htmltopdf.pdf', 'I'));
+
+        $email = user()->email;
+
+        // join table history dengan gejala
+        $db      = \Config\Database::connect();
+        $builder = $db->table('history');
+        $builder->where('email', $email);
+        $builder->select('*');
+        $builder->join('gejala', 'gejala.kodeGejala = history.pertanyaan');
+        $query = $builder->get();
+
+        $data = [
+            'title' => 'Hasil Diagnosa',
+            'data' => $this->penyakitModel->getKode($kode),
+            'history' => $query->getResultArray()
+        ];
+
+        $mpdf = new Mpdf(['mode' => 'utf-8']);
+        $mpdf->WriteHTML(view('admin/cetak', $data));
+        return redirect()->to($mpdf->Output('HasilDiagnosa-SPPK.pdf', 'I'));
     }
 }

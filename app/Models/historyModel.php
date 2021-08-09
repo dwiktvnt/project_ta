@@ -12,8 +12,14 @@ class historyModel extends Model
         'email', 'pertanyaan', 'jawaban', 'next', 'tglDiagnosa'
     ];
 
-    public function getHistory($email)
+    public function getRiwayat($email = FALSE)
     {
-        return $this->where(['email' => $email])->findAll();
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('history');
+        $builder->where('email', $email);
+        $builder->selectMax('idPilihan');
+        $query = $builder->get();
+        return $query;
     }
 }

@@ -14,14 +14,12 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                <?php if (in_groups('user')) : ?>
-                    <li class="sidebar-item  ">
-                        <a href="<?= base_url('admin'); ?>" class='sidebar-link'>
-                            <i class="bi bi-grid-fill"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                <?php endif; ?>
+                <li class="sidebar-item  ">
+                    <a href="<?= base_url('admin'); ?>" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-item  ">
                     <a href="<?= base_url('admin/profile'); ?>" class='sidebar-link'>

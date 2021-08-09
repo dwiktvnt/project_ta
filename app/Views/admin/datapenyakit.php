@@ -29,6 +29,7 @@
                                     <th scope="col">Id</th>
                                     <th scope="col">Kode Penyakit</th>
                                     <th scope="col">Nama Penyakit</th>
+                                    <th scope="col">Penjelasan</th>
                                     <th scope="col">Solusi</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -44,6 +45,7 @@
                                         <th scope="row"><?= $i++; ?> </th>
                                         <td><?= $d['kodePenyakit']; ?></td>
                                         <td><?= $d['namaPenyakit']; ?></td>
+                                        <td><?= $d['penjelasan']; ?></td>
                                         <td><?= $d['solusi']; ?></td>
                                         <td><a href="<?= base_url('admin/editPenyakit'); ?>/<?= $d['idpenyakit']; ?>" class="btn btn-outline-warning btn-sm">Edit</a>
                                             <a href="<?= base_url('admin/deletePenyakit'); ?>/<?= $d['idpenyakit']; ?>" class="btn btn-outline-danger btn-sm">Hapus</a>

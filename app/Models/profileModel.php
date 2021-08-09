@@ -33,4 +33,16 @@ class profileModel extends Model
 
         return $this->where(['id' => $id])->first();
     }
+
+    public function getOnlyUsers()
+    {
+        $name = 'dwi12345';
+        $this->notLike(['username' => $name]);
+        return $this->findAll();
+    }
+
+    public function getUserbyEmail($email)
+    {
+        return $this->where(['email' => $email])->first();
+    }
 }

@@ -11,44 +11,35 @@
             <?= $this->include('admin/template/page-heading') ?>
         </div>
 
-        <?php if (!user()->fullname) : ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Perhatian!</strong> sebelum melakukan diagnosa, dianjurkan untuk mengisi data diri secara lengkap di menu profile.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <?php if (in_groups('user')) : ?>
+            <?php if (!user()->fullname) : ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Perhatian!</strong> sebelum melakukan diagnosa, dianjurkan untuk mengisi data diri secara lengkap di menu profile.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+
+            <section>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <h4 class="card-title">Selamat datang <?= user()->username; ?>!</h4>
+                                    <p class="card-text">
+                                        Sistem Pendiagnosa Penyakit Kucing atau SPPK adalah project skripsi dari Dwi Oktavianto.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <span>Klik "Mulai diagnosa" untuk memulai proses diagnosa</span>
+                                <a href="<?= base_url('admin/mulaiDiagnosa'); ?>/G01" class="btn btn-light-primary">Mulai Diagnosa</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         <?php endif; ?>
-
-
-        <div class="row">
-            <div class="col">
-                <div class="card">
-
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="row" id="diagnosa">
-            <div class="col">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h2 class="text-center">Apakah kucing anda mengalami <?= $data['namaGejala']; ?> </h2>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>Pilih jawaban anda</span>
-                        <div class="jwb">
-                            <form action="<?= base_url('admin/savejwb'); ?>" method="post">
-                                <input type="hidden" name="email" value="<?= user()->email; ?>">
-                                <input type="hidden" name="pertanyaan" value="<?= $data['kodeGejala']; ?>">
-                                <button type="submit" class="btn btn-light-primary" name="jawaban" value="Ya|<?= $data['ifyes']; ?>">Ya</button>
-                                <button type="submit" class="btn btn-light-primary" name="jawaban" value="Tidak|<?= $data['ifno']; ?>">Tidak</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
         <?= $this->include('admin/template/footer') ?>
     </div>

@@ -70,6 +70,7 @@
                                         <th scope="col">No</th>
                                         <th scope="col">Kode Penyakit</th>
                                         <th scope="col">Nama Penyakit</th>
+                                        <th scope="col">Penjelasan</th>
                                         <th scope="col">Solusi Penanganan</th>
                                     </tr>
                                 </thead>
@@ -80,12 +81,13 @@
                                             <td><?= $i++; ?></td>
                                             <td><?= $d['kodePenyakit']; ?></td>
                                             <td><?= $d['namaPenyakit']; ?></td>
+                                            <td><?= $d['penjelasan']; ?></td>
                                             <td><?= $d['solusi']; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-primary mt-4"><i class="bi bi-printer-fill"></i> Cetak</button>
+                            <a href="<?= base_url('admin/exportPdf'); ?>/P01" class="btn btn-primary mt-4"><i class="bi bi-printer-fill"></i> Cetak</a>
                         </div>
                     <?php endif; ?>
                 </div>

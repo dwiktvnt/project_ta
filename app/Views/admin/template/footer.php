@@ -3,9 +3,9 @@
         <div class="float-start">
             <p>2021 &copy; SPPK</p>
         </div>
-        <div class="float-end">
-            <p>Designed with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+        <!-- <div class="float-end">
+            <p>Designed with <span class="text-danger"></span>
                 by DWI OKTA</a></p>
-        </div>
+        </div> -->
     </div>
 </footer>

@@ -58,7 +58,9 @@ $routes->add('/admin/editProfile/(:num)', 'Admin::editProfile/$1', ['filter' => 
 $routes->add('/admin/updateProfile/(:num)', 'Admin::updateProfile/$1', ['filter' => 'role:admin,user']);
 $routes->add('/admin/riwayat', 'Admin::riwayat', ['filter' => 'role:admin']);
 $routes->add('/admin/savePenyakit', 'Admin::savePenyakit', ['filter' => 'role:admin']);
-
+$routes->add('/admin/detailRiwayat/(:any)', 'Admin::detailRiwayat/$1', ['filter' => 'role:admin']);
+$routes->add('/admin/mulaiDiagnosa/(:any)', 'Admin::mulaiDiagnosa/$1', ['filter' => 'role:admin,user']);
+$routes->add('/admin/exportPdf/(:any)', 'Admin::exportPdf/$1', ['filter' => 'role:admin,user']);
 
 $routes->add('/admin/(:any)', 'Admin::index/$1', ['filter' => 'role:admin,user']);
 

@@ -26,9 +26,12 @@
                                     <input type="text" name="namaPenyakit" class="form-control" placeholder="Nama Penyakit" value="<?= $data['namaPenyakit']; ?>">
                                 </div>
                                 <div class="col">
+                                    <input type="text" name="penjelasan" class="form-control" placeholder="Penjelasan" value="<?= $data['penjelasan']; ?>">
+                                </div>
+                                <div class="col">
                                     <input type="text" name="solusi" class="form-control" placeholder="Solusi" value="<?= $data['solusi']; ?>">
                                 </div>
-                                
+
                             </div>
                             <button type="submit" class="btn btn-primary mt-4">Input</button>
                         </form>

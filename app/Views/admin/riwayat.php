@@ -27,48 +27,49 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Image</th>
                                     <th>Fullname</th>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Tanggal Diagnosa</th>
-                                    <th>Hasil Diagnosa</th>
+                                    <th>Riwayat</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($data as $d) : ?>
+                                <?php foreach ($users as $u) : ?>
                                     <tr>
                                         <td>#</td>
-                                        <td class="text-bold-500"><?= $d['fullname']; ?></td>
-                                        <td><?= $d['username']; ?></td>
-                                        <td class="text-bold-500"><?= $d['email']; ?></td>
-                                        <td class="text-bold-500"><?= $d['tglDiagnosa']; ?></td>
-                                        <td>
+                                        <td><img src="<?= base_url('assets/images/faces'); ?>/<?= $u['user_image']; ?>" class="img-thumbnail" style="border-radius: 30px; width:50px;"></td>
+                                        <td class="text-bold-500"><?= $u['fullname']; ?></td>
+                                        <td><?= $u['username']; ?></td>
+                                        <td class="text-bold-500"><?= $u['email']; ?></td>
+                                        <td class="text-bold-500"><a href="<?= base_url('admin/detailRiwayat') ?>/<?= $u['email']; ?>" class="btn btn-outline-secondary btn-sm">Detail</a></td>
+                                        <!-- <td>
                                             <?php
-                                            if ($d['next'] == 'P11') {
-                                                echo 'Penyakit Tidak ditemukan';
-                                            } elseif ($d['next'] == 'P01') {
-                                                echo 'Feline Infectious Peritonitis';
-                                            } elseif ($d['next'] == 'P02') {
-                                                echo 'Feline Calicivirus';
-                                            } elseif ($d['next'] == 'P03') {
-                                                echo 'Abses';
-                                            } elseif ($d['next'] == 'P04') {
-                                                echo 'Ringworm';
-                                            } elseif ($d['next'] == 'P05') {
-                                                echo 'Toxocara';
-                                            } elseif ($d['next'] == 'P06') {
-                                                echo 'Feline Panleucopenia';
-                                            } elseif ($d['next'] == 'P07') {
-                                                echo 'Chlamydia';
-                                            } elseif ($d['next'] == 'P08') {
-                                                echo 'Feline Rhinotracheitis';
-                                            } elseif ($d['next'] == 'P09') {
-                                                echo 'Pyometra';
-                                            } elseif ($d['next'] == 'P10') {
-                                                echo 'Tungau';
-                                            }
+                                            // if ($data['next'] == 'P11') {
+                                            //     echo 'Penyakit Tidak ditemukan';
+                                            // } elseif ($data['next'] == 'P01') {
+                                            //     echo 'Feline Infectious Peritonitis';
+                                            // } elseif ($data['next'] == 'P02') {
+                                            //     echo 'Feline Calicivirus';
+                                            // } elseif ($data['next'] == 'P03') {
+                                            //     echo 'Abses';
+                                            // } elseif ($data['next'] == 'P04') {
+                                            //     echo 'Ringworm';
+                                            // } elseif ($data['next'] == 'P05') {
+                                            //     echo 'Toxocara';
+                                            // } elseif ($data['next'] == 'P06') {
+                                            //     echo 'Feline Panleucopenia';
+                                            // } elseif ($data['next'] == 'P07') {
+                                            //     echo 'Chlamydia';
+                                            // } elseif ($data['next'] == 'P08') {
+                                            //     echo 'Feline Rhinotracheitis';
+                                            // } elseif ($data['next'] == 'P09') {
+                                            //     echo 'Pyometra';
+                                            // } elseif ($data['next'] == 'P10') {
+                                            //     echo 'Tungau';
+                                            // }
                                             ?>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
